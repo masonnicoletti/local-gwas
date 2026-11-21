@@ -1,0 +1,14 @@
+name: gwas
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12
+  - numpy
+  - pandas
+  - matplotlib
+  - plink2
+  - plink
+  - bcftools
+  - nextflow
+  - openjdk=21

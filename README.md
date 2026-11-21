@@ -1,9 +1,11 @@
 # local-gwas
 A basic setup for GWAS workflows
 
+---
+
 ## Starting Notes
 
-### Data
+#### Data
 
 **Genotypes:** 1000 Genomes Project Phase 3
   - 2,504 Samples
@@ -13,7 +15,7 @@ A basic setup for GWAS workflows
 **Phenotypes:** simulated
 
 
-### Software
+#### Software
 
 **Tools:**
 - PLINK 2.0
@@ -25,11 +27,11 @@ A basic setup for GWAS workflows
 - qqman
 
 **Environment:**
-- macOS (Apple silicon, arm64)
-- conda (Miniforge)
+- MacOS (Apple silicon, arm64)
+- Conda (Miniforge)
 
 
-### Phases Overview
+#### Phases Overview
 1. Setup
 2. Prep Data
 3. Quality Control
@@ -39,6 +41,7 @@ A basic setup for GWAS workflows
 7. Stress Test
 8. Pipeline Setup
 
+----
 
 ### Project layout
 
@@ -61,9 +64,9 @@ gwas-project/
 ## Phases
 
 ### Phase 0: Setup
-- [ ] Install Miniforge, create the conda environment from `envs/gwas.yml`
-- [ ] Verify `plink2`, `bcftools`, `nextflow` all run
-- [ ] Initialize git repo and project directories
+- [x] Install Miniforge, create the conda environment from `envs/gwas.yml`
+- [x] Verify `plink2`, `bcftools`, `nextflow` all run
+- [x] Initialize git repo and project directories
 
 ### Phase 1: Look at the data
 - [ ] Download chr22 from 1000 Genomes Phase 3
@@ -110,6 +113,7 @@ each against the manual results.
 - Heritability (LDSC), polygenic scores
 - Real data: public summary statistics (GWAS Catalog, Pan-UK Biobank)
 
+---
 
 ## Additional Notes
 
