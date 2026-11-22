@@ -100,7 +100,7 @@ Of 1,103,547 variants in the VCF, 48,093 were excluded (multiallelic sites, inde
 | Sample info | `chr22_snps.psam` | Text table of 2,504 sample IDs | 27 KB |
 | Conversion log | `chr22_snps.log` | PLINK's record of the run | 1.3 KB |
 
-### 2. PLINK 1 format conversion (`chr22_snps_bed`)
+### 2. PLINK 1 conversion (`chr22_snps_bed`)
 
 Created with:
 ```bash
@@ -115,6 +115,64 @@ Same data as above in the older `.bed/.bim/.fam` format, kept for comparison and
 | Sample info | `chr22_snps_bed.fam` | Text table of samples: family ID, individual ID, parental IDs, sex, phenotype | 47 KB |
 | Conversion log | `chr22_snps_bed.log` | PLINK's record of the format conversion | 822 B |
 
+### 3. Variant QC (`chr22_varqc`)
+
+Created with:
+```bash
+plink2 --pfile data/processed/chr22_snps --geno 0.02 --maf 0.01 \
+  --make-pgen --out data/processed/chr22_varqc
+```
+
+| Step | Filter | Removed | Remaining |
+|---|---|---|---|
+| Start | biallelic SNPs (`chr22_snps`) | n/a | 1,055,454 |
+| Missingness | `--geno 0.02` | 0 | 1,055,454 |
+| Minor allele frequency | `--maf 0.01` | 884,505 | 170,949 |
+
+| Title | File name | Description | Size |
+|---|---|---|---|
+| Genotypes | `chr22_varqc.pgen` | PLINK 2 genotypes after variant QC | 58 MB |
+| Variant info | `chr22_varqc.pvar` | Variant table for the retained variants | 28 MB |
+| Sample info | `chr22_varqc.psam` | Same 2,504 samples as before | 27 KB |
+| QC log | `chr22_varqc.log` | PLINK's record of the filter run | 1.1 KB |
+
+**QC decisions**
+- **Missingness:** `--geno 0.02` removed nothing. The data are imputed and complete, so this filter is a safeguard here.
+- **MAF ≥ 1%:** rare variants have almost no power and unstable estimates, and a variant with one carrier is driven by one person. 83.8% of variants were rare.
+- **HWE not applied to the pooled sample.** 24.5% of retained variants fail at p < 1e-6 in the pooled data versus 0.9% in the European-only subset. The difference is mostly population structure (Wahlund effect, a heterozygote deficit from mixing populations), not genotyping error.
+
+### 4. Kinship files (`chr22_unrelated`)
+
+Created with:
+```bash
+plink2 --pfile data/processed/chr22_varqc \
+  --king-cutoff 0.0884 \
+  --out data/processed/chr22_unrelated
+```
+
+| Title | File name | Description | Size |
+|---|---|---|---|
+| Kept samples | `chr22_unrelated.king.cutoff.in.id` | Samples kept after removing relatives at kinship ≥ 0.0884 | 19 KB |
+| Removed samples | `chr22_unrelated.king.cutoff.out.id` | Samples removed for relatedness | 661 B |
+| Kinship log | `chr22_unrelated.log` | PLINK's record of the `--king-cutoff` run | 1.1 KB |
+
+**Kinship filtering:** 82 removed samples
+
+### 5. Sample-QC dataset (`chr22_sampleqc`)
+
+Created with:
+```bash
+plink2 --pfile data/processed/chr22_varqc \
+  --keep data/processed/chr22_unrelated.king.cutoff.in.id \
+  --make-pgen --out data/processed/chr22_sampleqc
+```
+
+| Title | File name | Description | Size |
+|---|---|---|---|
+| Genotypes | `chr22_sampleqc.pgen` | PLINK 2 genotypes after variant and sample QC | 56 MB |
+| Variant info | `chr22_sampleqc.pvar` | Variant table (unchanged from `chr22_varqc`, 170,949 variants) | 28 MB |
+| Sample info | `chr22_sampleqc.psam` | Sample table for the 2,422 retained samples | 27 KB |
+| QC log | `chr22_sampleqc.log` | PLINK's record of the run | 1013 B |
 
 ## Phases
 
@@ -129,9 +187,9 @@ Same data as above in the older `.bed/.bim/.fam` format, kept for comparison and
 - [x] Convert to PLINK binary format; understand `.bed/.bim/.fam`
 
 ### Phase 2: Variant and sample QC
-- [ ] Variant filters: call rate, minor allele frequency, Hardy-Weinberg
-- [ ] Sample filters: missingness, heterozygosity, relatedness
-- [ ] Record how many variants/samples each filter removes, and why
+- [x] Variant filters: call rate, minor allele frequency, Hardy-Weinberg
+- [x] Sample filters: missingness, heterozygosity, relatedness
+- [x] Record how many variants/samples each filter removes, and why
 
 ### Phase 3: Population structure
 - [ ] LD pruning
