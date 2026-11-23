@@ -193,6 +193,17 @@ plink2 --pfile data/processed/chr22_sampleqc \
 
 **Result:** 14,744 variants kept (8.6%) from 170,949. Pruning writes variant lists only; it does not create a new genotype dataset.
 
+### 7. Simulated phenotype
+
+| Title | File name | Description | Size |
+|---|---|---|---|
+| Causal variant IDs | `data/processed/causal_ids.txt` | The 10 selected variant IDs | 160 B |
+| Causal genotypes | `data/processed/causal_genotypes.raw` | Additive genotypes (0/1/2) of the 10 causal variants | 93 KB |
+| Export log | `data/processed/causal_genotypes.log` | PLINK's record of the run | 854 B |
+| Phenotype | `data/processed/pheno.txt` | Simulated traits | 66 KB |
+| Answer key | `data/processed/causal_key.csv` | Saved causal variants | 829 B |
+
+**Limitations:** the trait is abstract, not a real phenotype. A real trait would spread its heritability over thousands of variants genome-wide, each with a tiny effect, and would need far more samples. All effects here are concentrated on one chromosome.
 
 ## Phases
 
@@ -217,8 +228,8 @@ plink2 --pfile data/processed/chr22_sampleqc \
 - [x] Plot PC1 vs PC2 colored by population
 
 ### Phase 4: Simulate the phenotype
-- [ ] Write a Python script: choose causal SNPs, effect sizes, noise
-- [ ] Save the true causal SNPs separately as the answer key
+- [x] Write a Python script: choose causal SNPs, effect sizes, noise
+- [x] Save the true causal SNPs separately as the answer key
 
 ### Phase 5: Association testing
 - [ ] Run `plink2 --glm` with and without PC covariates
