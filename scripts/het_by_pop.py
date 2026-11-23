@@ -4,7 +4,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 # PLINK's per-sample heterozygosity results
-het = pd.read_csv("results/qc/chr22_varqc_samples.het", sep="\t")
+het = pd.read_csv("results/qc/chr22_pruned_het.het", sep="\t")
 het = het.rename(columns={"#IID": "IID"})
 
 # Panel file with population information
@@ -37,4 +37,4 @@ plt.tight_layout()
 plt.savefig("results/qc/het_by_pop.png", dpi=150)
 
 # Save outliers to CSV
-df.loc[df["z"].abs() > 4, ["IID", "pop", "super_pop", "F", "z"]].to_csv("results/qc/het_outliers.csv", index=False)
+df.loc[df["z"].abs() > 4, ["IID", "pop", "super_pop", "F", "z"]].to_csv("results/qc/het_outliers_pruned.csv", index=False)

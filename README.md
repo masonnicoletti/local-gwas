@@ -174,6 +174,26 @@ plink2 --pfile data/processed/chr22_varqc \
 | Sample info | `chr22_sampleqc.psam` | Sample table for the 2,422 retained samples | 27 KB |
 | QC log | `chr22_sampleqc.log` | PLINK's record of the run | 1013 B |
 
+### 6. LD pruning (`chr22_pruned`)
+
+Created with:
+```bash
+plink2 --pfile data/processed/chr22_sampleqc \
+  --indep-pairwise 1000 50 0.2 \
+  --out data/processed/chr22_pruned
+```
+
+| Title | File name | Description | Size |
+|---|---|---|---|
+| Kept variants | `chr22_pruned.prune.in` | IDs of the 14,744 variants retained after LD pruning | 231 KB |
+| Removed variants | `chr22_pruned.prune.out` | IDs of the 156,205 variants removed for high LD | 2.4 MB |
+| Pruning log | `chr22_pruned.log` | PLINK's record of the pruning run | 908 B |
+
+**Why prune:** nearby variants are correlated (linkage disequilibrium), so a block of correlated variants would cause LD structure to dominate PCA instead of ancestry. Pruning keeps one representative per correlated cluster.
+
+**Result:** 14,744 variants kept (8.6%) from 170,949. Pruning writes variant lists only; it does not create a new genotype dataset.
+
+
 ## Phases
 
 ### Phase 0: Setup
@@ -192,9 +212,9 @@ plink2 --pfile data/processed/chr22_varqc \
 - [x] Record how many variants/samples each filter removes, and why
 
 ### Phase 3: Population structure
-- [ ] LD pruning
-- [ ] PCA
-- [ ] Plot PC1 vs PC2 colored by population
+- [x] LD pruning
+- [x] PCA
+- [x] Plot PC1 vs PC2 colored by population
 
 ### Phase 4: Simulate the phenotype
 - [ ] Write a Python script: choose causal SNPs, effect sizes, noise
