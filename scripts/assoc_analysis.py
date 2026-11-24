@@ -29,7 +29,7 @@ results = {name: load(path) for name, path in RUNS.items()}
 key = pd.read_csv("data/processed/causal_key.csv")
 causal_pos = key["variant"].str.split(":").str[1].astype(int)
 
-# Estimate association values
+# Estimate association statistics
 lams = {}
 for name, df in results.items():
     lams[name] = genomic_lambda(df["P"].to_numpy())

@@ -232,14 +232,14 @@ plink2 --pfile data/processed/chr22_sampleqc \
 - [x] Save the true causal SNPs separately as the answer key
 
 ### Phase 5: Association testing
-- [ ] Run `plink2 --glm` with and without PC covariates
-- [ ] Manhattan plot, QQ plot, genomic inflation factor (λ)
-- [ ] Check whether the planted signals are recovered
+- [x] Run `plink2 --glm` with and without PC covariates
+- [x] Manhattan plot, QQ plot, genomic inflation factor (λ)
+- [x] Check whether the planted signals are recovered
 
 ### Phase 6: Break it on purpose
-- [ ] Build a phenotype confounded with ancestry
-- [ ] Run association without PCs; observe λ inflation and false positives
-- [ ] Add PCs back; observe the correction
+- [x] Build a phenotype confounded with ancestry
+- [x] Run association without PCs; observe λ inflation and false positives
+- [x] Add PCs back; observe the correction
 
 ### Phase 7: Port to Nextflow
 Convert the working manual steps into a pipeline, one process at a time, checking
