@@ -249,7 +249,7 @@ each against the manual results.
 - [x] 7c. Port LD pruning + PCA
 - [x] 7d. Port association + plotting
 - [x] 7e. Parameterize in `nextflow.config` (input paths, thresholds, covariate on/off)
-- [ ] 7f. Verify the pipeline reproduces the manual results; try `-resume`
+- [x] 7f. Verify the pipeline reproduces the manual results; try `-resume`
 
 ### Phase 8 (optional): Extensions
 - LD clumping and gene annotation of top hits
