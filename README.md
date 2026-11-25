@@ -244,11 +244,11 @@ plink2 --pfile data/processed/chr22_sampleqc \
 ### Phase 7: Port to Nextflow
 Convert the working manual steps into a pipeline, one process at a time, checking
 each against the manual results.
-- [ ] 7a. Nextflow basics: processes, channels, `workflow` block (toy example first)
-- [ ] 7b. Port conversion + QC as processes
-- [ ] 7c. Port LD pruning + PCA
-- [ ] 7d. Port association + plotting
-- [ ] 7e. Parameterize in `nextflow.config` (input paths, thresholds, covariate on/off)
+- [x] 7a. Nextflow basics: processes, channels, `workflow` block (toy example first)
+- [x] 7b. Port conversion + QC as processes
+- [x] 7c. Port LD pruning + PCA
+- [x] 7d. Port association + plotting
+- [x] 7e. Parameterize in `nextflow.config` (input paths, thresholds, covariate on/off)
 - [ ] 7f. Verify the pipeline reproduces the manual results; try `-resume`
 
 ### Phase 8 (optional): Extensions

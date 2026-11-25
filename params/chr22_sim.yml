@@ -1,0 +1,2 @@
+pheno: data/processed/pheno.txt
+key: data/processed/causal_key.csv
